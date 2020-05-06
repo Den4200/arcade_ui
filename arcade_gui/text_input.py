@@ -21,7 +21,8 @@ class TextInput:
         font_size: float = 12,
         horizontal_margin: float = 5,
         vertical_margin: float = 5,
-        cursor_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.BLACK
+        cursor_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.BLACK,
+        protected: bool = False
     ) -> None:
         self.center_x = center_x
         self.center_y = center_y
@@ -98,6 +99,8 @@ class TextInput:
         self._current_key_pressed = None
         self._key_hold_delta = 0
 
+        self.protected = protected
+
         self.KEY_SHIFTS = {
             arcade.key.GRAVE: arcade.key.ASCIITILDE,
             arcade.key.KEY_2: arcade.key.AT,
@@ -157,13 +160,15 @@ class TextInput:
         )
 
     def draw_text_at_cursor(self, text: str) -> None:
+        display_text = '*' if self.protected else text
+
         start_x = self.center_x - (self.width / 2) + self.horizontal_margin + \
             sum(text_sprite.width for text_sprite in self.text_sprites[:self.cursor_idx])
 
         start_y = self.center_y - (self.height / 2) + self.vertical_margin
 
         text_sprite = arcade.draw_text(
-            text=text,
+            text=display_text,
             start_x=start_x,
             start_y=start_y,
             color=self.text_color,
@@ -342,7 +347,8 @@ if __name__ == "__main__":
             self.text_input = TestTextInput(
                 ctx=self,
                 center_x=WINDOW_SIZE[0] / 2,
-                center_y=WINDOW_SIZE[1] / 2
+                center_y=WINDOW_SIZE[1] / 2,
+                protected=True
             )
 
         def on_mouse_press(self, x: float, y: float, button, modifiers) -> None:
