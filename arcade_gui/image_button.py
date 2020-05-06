@@ -23,7 +23,7 @@ class ImageButton(arcade.Sprite):
 
         self.pressed = False
 
-    def on_mouse_press(self, x, y, button, modifiers) -> None:
+    def on_mouse_press(self, x: float, y: float, button: int, modifiers: int) -> None:
         if button == arcade.MOUSE_BUTTON_LEFT:
             if check_point_for_collision(
                 (x, y),
@@ -35,7 +35,7 @@ class ImageButton(arcade.Sprite):
                 self.texture = self.clicked
                 self.pressed = True
 
-    def on_mouse_release(self, x, y, button, modifiers) -> None:
+    def on_mouse_release(self, x: float, y: float, button: int, modifiers: int) -> None:
         if button == arcade.MOUSE_BUTTON_LEFT:
             if check_point_for_collision(
                 (x, y),
