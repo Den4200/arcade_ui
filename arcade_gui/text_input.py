@@ -75,7 +75,6 @@ class TextInput:
             )
         )
 
-        self.cursor_sprites = arcade.ShapeElementList()
         self.cursor = arcade.create_rectangle_filled(
             center_x=center_x - (width / 2) + horizontal_margin,
             center_y=center_y - (height / 2) + vertical_margin + self.text_sprites[0].height / 2,
@@ -83,7 +82,6 @@ class TextInput:
             height=self.text_sprites[0].height,
             color=self.box_color
         )
-        self.cursor_sprites.append(self.cursor)
 
         self.cursor_color = cursor_color
         self.prev_cursor_idx = 0
@@ -92,7 +90,7 @@ class TextInput:
         self.cursor_is_active = False
         self._cursor_blink_delta = 0
 
-        self._active = False
+        self.active = False
 
         self._current_key_pressed = None
         self._key_hold_delta = 0
@@ -145,28 +143,7 @@ class TextInput:
 
         return center_x, center_y
 
-    @property
-    def active(self) -> bool:
-        return self._active
-
-    @active.setter
-    def active(self, value: bool) -> None:
-        if not value:
-            self.cursor_sprites.remove(self.cursor)
-
-            self.cursor = arcade.create_rectangle_filled(
-                *self.cursor_pos,
-                width=1,
-                height=self.text_sprites[0].height,
-                color=self.box_color
-            )
-            self.cursor_sprites.append(self.cursor)
-
-        self._active = value
-
-    def draw_cursor(self, center_x: float, center_y: float, color: Tuple[int, int, int, int]) -> None:
-        self.cursor_sprites.remove(self.cursor)
-
+    def set_cursor(self, center_x: float, center_y: float, color: Tuple[int, int, int, int]) -> None:
         self.cursor = arcade.create_rectangle_filled(
             center_x=center_x,
             center_y=center_y,
@@ -174,8 +151,6 @@ class TextInput:
             height=self.text_sprites[self.cursor_idx].height,
             color=color
         )
-
-        self.cursor_sprites.append(self.cursor)
 
     def draw_text_at_cursor(self, text: str) -> None:
         start_x = self.center_x - (self.width / 2) + self.horizontal_margin + \
@@ -221,7 +196,7 @@ class TextInput:
 
     def move_cursor(self) -> bool:
         if self.prev_cursor_idx != self.cursor_idx:
-            self.draw_cursor(*self.cursor_pos, self.cursor_color)
+            self.set_cursor(*self.cursor_pos, self.cursor_color)
             self.prev_cursor_idx = self.cursor_idx
 
             return True
@@ -296,7 +271,9 @@ class TextInput:
     def draw(self) -> None:
         self.shapes.draw()
         self.text_sprites.draw()
-        self.cursor_sprites.draw()
+
+        if self.active:
+            self.cursor.draw()
 
     def on_update(self, delta_time: float = 1/60) -> None:
         if not self.active:
@@ -318,7 +295,7 @@ class TextInput:
                 color = self.cursor_color
                 self.cursor_is_active = True
 
-            self.draw_cursor(*self.cursor_pos, color)
+            self.set_cursor(*self.cursor_pos, color)
             self._cursor_blink_delta = 0
 
         if self._current_key_pressed is not None:
