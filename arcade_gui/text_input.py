@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Tuple, Union
 
 import arcade
 
@@ -11,16 +11,16 @@ class TextInput:
         center_y: float,
         width: float = 300,
         height: float = 25,
-        box_color: Tuple[int, int, int, int] = arcade.color.WHITE,
-        border_color: Tuple[int, int, int, int] = arcade.color.BLACK,
+        box_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.WHITE,
+        border_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.BLACK,
         border_width: float = 1,
-        text_color: Tuple[int, int, int, int] = arcade.color.BLACK,
+        text_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.BLACK,
         bold: bool = False,
         italic: bool = False,
         font_size: float = 12,
         horizontal_margin: float = 5,
         vertical_margin: float = 5,
-        cursor_color: Tuple[int, int, int, int] = arcade.color.BLACK
+        cursor_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.BLACK
     ) -> None:
         self.center_x = center_x
         self.center_y = center_y
@@ -143,13 +143,14 @@ class TextInput:
 
         return center_x, center_y
 
-    def set_cursor(self, center_x: float, center_y: float, color: Tuple[int, int, int, int]) -> None:
+    def set_cursor(self, center_x: float, center_y: float, alpha: int) -> None:
+        color = self.cursor_color if len(self.cursor_color) == 3 else self.cursor_color[:-1]
         self.cursor = arcade.create_rectangle_filled(
             center_x=center_x,
             center_y=center_y,
             width=1,
             height=self.text_sprites[self.cursor_idx].height,
-            color=color
+            color=(*color, alpha)
         )
 
     def draw_text_at_cursor(self, text: str) -> None:
@@ -196,7 +197,7 @@ class TextInput:
 
     def move_cursor(self) -> bool:
         if self.prev_cursor_idx != self.cursor_idx:
-            self.set_cursor(*self.cursor_pos, self.cursor_color)
+            self.set_cursor(*self.cursor_pos, 255)
             self.prev_cursor_idx = self.cursor_idx
 
             return True
@@ -288,14 +289,14 @@ class TextInput:
         if self._cursor_blink_delta > 0.5:
 
             if self.cursor_is_active:
-                color = self.box_color
+                alpha = 0
                 self.cursor_is_active = False
 
             else:
-                color = self.cursor_color
+                alpha = 255
                 self.cursor_is_active = True
 
-            self.set_cursor(*self.cursor_pos, color)
+            self.set_cursor(*self.cursor_pos, alpha)
             self._cursor_blink_delta = 0
 
         if self._current_key_pressed is not None:
