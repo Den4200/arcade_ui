@@ -17,6 +17,7 @@ class TextInput:
         text_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.BLACK,
         bold: bool = False,
         italic: bool = False,
+        font_name: Union[str, Tuple[str, ...]] = ('calibri', 'arial'),
         font_size: float = 12,
         horizontal_margin: float = 5,
         vertical_margin: float = 5,
@@ -36,6 +37,7 @@ class TextInput:
         self.text_color = text_color
         self.bold = bold
         self.italic = italic
+        self.font_name = font_name
         self.font_size = font_size
 
         self.horizontal_margin = horizontal_margin
@@ -69,6 +71,7 @@ class TextInput:
                 start_x=center_x - (width / 2) + horizontal_margin,
                 start_y=center_y - (height / 2) + vertical_margin,
                 color=text_color,
+                font_name=self.font_name,
                 font_size=font_size,
                 bold=bold,
                 italic=italic
@@ -164,6 +167,7 @@ class TextInput:
             start_x=start_x,
             start_y=start_y,
             color=self.text_color,
+            font_name=self.font_name,
             font_size=self.font_size,
             bold=self.bold,
             italic=self.italic
