@@ -312,24 +312,38 @@ class TextInput:
 
 
 if __name__ == "__main__":
+    from typing import Any
     WINDOW_SIZE = (1280, 720)
+
+    class TestTextInput(TextInput):
+
+        def __init__(self, ctx, *args: Any, **kwargs: Any) -> None:
+            super().__init__(*args, **kwargs)
+            self.ctx = ctx
+
+        def on_enter(self, text: str) -> None:
+            self.ctx.display_text(text)
 
     class Test(arcade.Window):
 
         def __init__(self) -> None:
             super().__init__(*WINDOW_SIZE, 'Test Window')
+
             self.text_input = None
+            self.text_display = None
 
             arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
         def setup(self) -> None:
-            self.text_input = TextInput(
-                WINDOW_SIZE[0] / 2,
-                WINDOW_SIZE[1] / 2,
-                300, 25
+            self.text_input = TestTextInput(
+                ctx=self,
+                center_x=WINDOW_SIZE[0] / 2,
+                center_y=WINDOW_SIZE[1] / 2,
+                width=300,
+                height=25
             )
 
-        def on_mouse_press(self, x, y, button, modifiers) -> None:
+        def on_mouse_press(self, x: float, y: float, button, modifiers) -> None:
             self.text_input.on_mouse_press(x, y, button, modifiers)
 
         def on_key_press(self, key, modifiers) -> None:
@@ -342,8 +356,22 @@ if __name__ == "__main__":
             arcade.start_render()
             self.text_input.draw()
 
+            if self.text_display is not None:
+                self.text_display.draw()
+
         def on_update(self, delta_time: float = 1/60) -> None:
             self.text_input.on_update(delta_time)
+
+        def display_text(self, text: str) -> None:
+            self.text_display = arcade.draw_text(
+                text=f'You said: {text}',
+                start_x=WINDOW_SIZE[0] / 2,
+                start_y=WINDOW_SIZE[1] / 2 - 30,
+                color=arcade.color.BLACK,
+                align='center',
+                anchor_x='center',
+                anchor_y='center'
+            )
 
     test = Test()
     test.setup()
