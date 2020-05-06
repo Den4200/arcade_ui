@@ -192,7 +192,7 @@ class TextInput:
         # for arcade.draw_text to set caching on/off
         arcade.text.draw_text_cache.clear()
 
-    def delete_text(self, idx) -> None:
+    def delete_text(self, idx: int) -> None:
         self.text = self.text[:idx] + self.text[idx + 1:]
         old_sprite = self.text_sprites.pop(idx)
 
@@ -208,7 +208,7 @@ class TextInput:
 
         return False
 
-    def on_mouse_press(self, x, y, button, modifiers) -> None:
+    def on_mouse_press(self, x: float, y: float, button: int, modifiers: int) -> None:
         if (
             self.center_x - self.width / 2 < x < self.center_x + self.width / 2 and
             self.center_y - self.height / 2 < y < self.center_y + self.height / 2
@@ -223,17 +223,17 @@ class TextInput:
         else:
             self.active = False
 
-    def on_key_press(self, key, modifiers) -> None:
+    def on_key_press(self, key: int, modifiers: int) -> None:
         if not self.active:
             return
 
         self._current_key_pressed = (key, modifiers)
         self.process_key(key, modifiers)
 
-    def on_key_release(self, key, modifiers) -> None:
+    def on_key_release(self, key: int, modifiers: int) -> None:
         self._current_key_pressed = None
 
-    def process_key(self, key, modifiers) -> None:
+    def process_key(self, key: int, modifiers: int) -> None:
         if arcade.key.SPACE <= key <= arcade.key.ASCIITILDE:
             if modifiers & 1 == arcade.key.MOD_SHIFT:
                 key_shift = self.KEY_SHIFTS.get(key)
@@ -350,10 +350,10 @@ if __name__ == "__main__":
         def on_mouse_press(self, x: float, y: float, button, modifiers) -> None:
             self.text_input.on_mouse_press(x, y, button, modifiers)
 
-        def on_key_press(self, key, modifiers) -> None:
+        def on_key_press(self, key: int, modifiers: int) -> None:
             self.text_input.on_key_press(key, modifiers)
 
-        def on_key_release(self, key, modifiers) -> None:
+        def on_key_release(self, key: int, modifiers: int) -> None:
             self.text_input.on_key_release(key, modifiers)
 
         def on_draw(self) -> None:
