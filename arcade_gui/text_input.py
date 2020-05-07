@@ -347,8 +347,7 @@ if __name__ == "__main__":
             self.text_input = TestTextInput(
                 ctx=self,
                 center_x=WINDOW_SIZE[0] / 2,
-                center_y=WINDOW_SIZE[1] / 2,
-                protected=True
+                center_y=WINDOW_SIZE[1] / 2
             )
 
         def on_mouse_press(self, x: float, y: float, button, modifiers) -> None:
