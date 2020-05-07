@@ -1,5 +1,5 @@
 import arcade
-from arcade_gui import TextInput
+from arcade_gui import TextBox, TextInput
 
 
 WINDOW_SIZE = (1280, 720)
@@ -81,4 +81,12 @@ class LoginExample(arcade.Window):
             align='center',
             anchor_x='center',
             anchor_y='center'
+        )
+
+        self.status_text = TextBox(
+            text=display_text,
+            center_x=WINDOW_SIZE[0] / 2,
+            center_y=WINDOW_SIZE[1] / 2 - 100,
+            width=250,
+            height=50
         )
