@@ -11,7 +11,7 @@ class ImageButton(arcade.Sprite):
         self,
         clicked: str,
         normal: str,
-        viewport: List[float, float],  # Must be a mutable object!
+        viewport: List[float],  # Must be a mutable object!
         **kwargs: Any
     ) -> None:
         super().__init__(filename=normal, **kwargs)
