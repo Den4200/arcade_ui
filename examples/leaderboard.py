@@ -46,7 +46,7 @@ class LeaderboardExample(arcade.Window):
                 )
             )
 
-    def draw(self):
+    def on_draw(self):
         arcade.start_render()
         self.list_view.draw()
 
