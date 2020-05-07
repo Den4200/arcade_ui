@@ -23,14 +23,10 @@ class ListView:
         self.margin = margin
 
     def on_mouse_scroll(self, x: int, y: int, scroll_x: int, scroll_y: int) -> None:
-        if self.nodes[0].center_y + self.nodes[0].height / 2 <= self.center_y + self.height / 2 - self.margin:
-            return
-
-        if self.nodes[-1].center_y - self.nodes[-1].width / 2 <= self.margin:
-            return
-
         for node in self.nodes:
-            node.center_y += scroll_y * self.scroll_speed
+            # node.center_y -= scroll_y * self.scroll_speed
+            node.shapes.center_y -= scroll_y * self.scroll_speed
+            node.text_sprite.center_y -= scroll_y * self.scroll_speed
 
     def draw(self) -> None:
         for node in self.nodes:

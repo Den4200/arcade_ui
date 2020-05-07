@@ -100,6 +100,7 @@ class TextBox:
             anchor_x=anchor_x,
             anchor_y=anchor_y
         )
+        arcade.text.draw_text_cache.clear()
 
     @property
     def text(self) -> str:
@@ -120,6 +121,7 @@ class TextBox:
             anchor_y=self.anchor_y
         )
         self._text = value
+        arcade.text.draw_text_cache.clear()
 
     @property
     def center_x(self) -> float:

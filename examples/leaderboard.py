@@ -39,9 +39,9 @@ class LeaderboardExample(arcade.Window):
                 TextBox(
                     text=f'{name} - {score}',
                     center_x=WINDOW_SIZE[0] / 2,
-                    center_y=WINDOW_SIZE[1] - (len(SCORES) - idx) * 60,
+                    center_y=WINDOW_SIZE[1] - (len(SCORES) - idx) * 100,
                     width=WINDOW_SIZE[0] / 8 * 7,
-                    height=40,
+                    height=80,
                     border_width=3
                 )
             )
