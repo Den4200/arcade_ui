@@ -13,3 +13,4 @@ arcade = "~=2.3"
 [scripts]
 lint = "python -m flake8"
 precommit = "pre-commit install"
+examples = "python -m examples"
