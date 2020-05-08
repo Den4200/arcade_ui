@@ -8,6 +8,12 @@ from arcade_gui.utils import check_point_for_collision
 
 class ButtonBehavior:
 
+    def __init__(
+        self,
+        viewport: List[float],  # Must be a mutable object!
+    ):
+        self.viewport = viewport
+
     def on_mouse_press(self, x: float, y: float, button: int, modifiers: int) -> bool:
         if button == arcade.MOUSE_BUTTON_LEFT:
             if check_point_for_collision(
@@ -51,15 +57,12 @@ class ImageButton(ButtonBehavior, arcade.Sprite):
         self,
         clicked: str,
         normal: str,
-        viewport: List[float],  # Must be a mutable object!
         **kwargs: Any
     ) -> None:
         super().__init__(filename=normal, **kwargs)
 
         self.clicked = arcade.load_texture(clicked)
         self.normal = arcade.load_texture(normal)
-
-        self.viewport = viewport
 
         self.pressed = False
 

@@ -1,5 +1,5 @@
 import arcade
-from arcade_gui import TextBox, TextInput
+from arcade_gui import TextBox, TextButton, TextInput
 
 
 WINDOW_SIZE = (1280, 720)
@@ -18,6 +18,16 @@ class LoginInput(TextInput):
         self.ctx.login()
 
 
+class LoginButton(TextButton):
+
+    def __init__(self, ctx, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.ctx = ctx
+
+    def on_submit(self):
+        self.ctx.login()
+
+
 class LoginExample(arcade.Window):
 
     def __init__(self):
@@ -25,6 +35,8 @@ class LoginExample(arcade.Window):
 
         self.username_input = None
         self.password_input = None
+
+        self.login_button = None
 
         self.status_text = None
 
@@ -43,9 +55,25 @@ class LoginExample(arcade.Window):
             protected=True
         )
 
+        self.login_button = LoginButton(
+            ctx=self,
+            text='Login',
+            center_x=WINDOW_SIZE[0] / 2,
+            center_y=WINDOW_SIZE[1] / 2 - 60,
+            width=100,
+            height=25,
+            border_width=3,
+            viewport=[0, 0]
+        )
+
     def on_mouse_press(self, x, y, button, modifiers):
         self.username_input.on_mouse_press(x, y, button, modifiers)
         self.password_input.on_mouse_press(x, y, button, modifiers)
+
+        self.login_button.on_mouse_press(x, y, button, modifiers)
+
+    def on_mouse_release(self, x, y, button, modifiers):
+        self.login_button.on_mouse_release(x, y, button, modifiers)
 
     def on_key_press(self, key, modifiers):
         self.username_input.on_key_press(key, modifiers)
@@ -59,6 +87,8 @@ class LoginExample(arcade.Window):
         arcade.start_render()
         self.username_input.draw()
         self.password_input.draw()
+
+        self.login_button.draw()
 
         if self.status_text is not None:
             self.status_text.draw()
@@ -86,7 +116,7 @@ class LoginExample(arcade.Window):
         self.status_text = TextBox(
             text=display_text,
             center_x=WINDOW_SIZE[0] / 2,
-            center_y=WINDOW_SIZE[1] / 2 - 100,
+            center_y=WINDOW_SIZE[1] / 2 - 120,
             width=250,
             height=50
         )

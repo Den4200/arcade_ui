@@ -23,8 +23,12 @@ class TextBox:
         anchor_x: str = 'center',
         anchor_y: str = 'center',
         horizontal_margin: float = 5,
-        vertical_margin: float = 5
+        vertical_margin: float = 5,
+        **kwargs
     ):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+
         self._text = text
 
         self._center_x = center_x
