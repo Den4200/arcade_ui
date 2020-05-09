@@ -1,5 +1,5 @@
 import arcade
-from arcade_gui import TextBox
+from arcade_gui import EventMap, TextBox, Window
 from arcade_gui.views import ListView
 
 
@@ -18,10 +18,10 @@ SCORES = [
 ]
 
 
-class LeaderboardExample(arcade.Window):
+class LeaderboardExample(Window):
 
     def __init__(self):
-        super().__init__(*WINDOW_SIZE, 'Leaderboard Example')
+        super().__init__(EventMap(), *WINDOW_SIZE, 'Leaderboard Example')
 
         self.list_view = None
 
@@ -33,6 +33,8 @@ class LeaderboardExample(arcade.Window):
             center_y=WINDOW_SIZE[1] / 2,
             height=WINDOW_SIZE[1]
         )
+
+        super().setup()
 
         for idx, (name, score) in enumerate(sorted(SCORES, key=lambda tup: tup[1])):
             self.list_view.nodes.append(
@@ -49,6 +51,3 @@ class LeaderboardExample(arcade.Window):
     def on_draw(self):
         arcade.start_render()
         self.list_view.draw()
-
-    def on_mouse_scroll(self, x, y, scroll_x, scroll_y):
-        self.list_view.on_mouse_scroll(x, y, scroll_x, scroll_y)

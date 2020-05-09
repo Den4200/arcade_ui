@@ -1,7 +1,10 @@
 from typing import Any, List
 
+from arcade_gui.widgets import InteractiveWidget
 
-class ListView:
+
+class ListView(InteractiveWidget):
+    __widget_name__ = 'list_view'
 
     def __init__(
         self,
