@@ -2,8 +2,11 @@ from typing import Tuple, Union
 
 import arcade
 
+from arcade_gui.widgets import InteractiveWidget
 
-class TextInput:
+
+class TextInput(InteractiveWidget):
+    __widget_name__ = 'text_input'
 
     def __init__(
         self,

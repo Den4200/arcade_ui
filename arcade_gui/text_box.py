@@ -2,8 +2,10 @@ from typing import Tuple, Union
 
 import arcade
 
+from arcade_gui.widgets import InteractiveWidget
 
-class TextBox:
+
+class _TextBox:
 
     def __init__(
         self,
@@ -150,3 +152,7 @@ class TextBox:
     def draw(self) -> None:
         self.shapes.draw()
         self.text_sprite.draw()
+
+
+class TextBox(InteractiveWidget, _TextBox):
+    __widget_name__ = 'text_box'

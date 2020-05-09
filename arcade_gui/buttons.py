@@ -2,8 +2,9 @@ from typing import Any, List
 
 import arcade
 
-from arcade_gui.text_box import TextBox
+from arcade_gui.text_box import _TextBox
 from arcade_gui.utils import check_point_for_collision
+from arcade_gui.widgets import InteractiveWidget
 
 
 class ButtonBehavior:
@@ -51,7 +52,8 @@ class ButtonBehavior:
         pass
 
 
-class ImageButton(ButtonBehavior, arcade.Sprite):
+class ImageButton(InteractiveWidget, ButtonBehavior, arcade.Sprite):
+    __widget_name__ = 'image_button'
 
     def __init__(
         self,
@@ -75,5 +77,5 @@ class ImageButton(ButtonBehavior, arcade.Sprite):
             self.texture = self.normal
 
 
-class TextButton(TextBox, ButtonBehavior):
-    pass
+class TextButton(InteractiveWidget, _TextBox, ButtonBehavior):
+    __widget_name__ = 'text_button'

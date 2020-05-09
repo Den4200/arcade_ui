@@ -1,5 +1,5 @@
 import arcade
-from arcade_gui import TextBox, TextButton, TextInput
+from arcade_gui import EventMap, TextBox, TextButton, TextInput, Window
 
 
 WINDOW_SIZE = (1280, 720)
@@ -9,6 +9,7 @@ PASSWORD = 'password'
 
 
 class LoginInput(TextInput):
+    __widget_name__ = 'login_input'
 
     def __init__(self, ctx, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -19,6 +20,7 @@ class LoginInput(TextInput):
 
 
 class LoginButton(TextButton):
+    __widget_name__ = 'login_button'
 
     def __init__(self, ctx, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -28,10 +30,10 @@ class LoginButton(TextButton):
         self.ctx.login()
 
 
-class LoginExample(arcade.Window):
+class LoginExample(Window):
 
     def __init__(self):
-        super().__init__(*WINDOW_SIZE, 'Test Window')
+        super().__init__(EventMap(), *WINDOW_SIZE, 'Test Window')
 
         self.title = None
 
@@ -81,22 +83,7 @@ class LoginExample(arcade.Window):
             viewport=[0, 0]
         )
 
-    def on_mouse_press(self, x, y, button, modifiers):
-        self.username_input.on_mouse_press(x, y, button, modifiers)
-        self.password_input.on_mouse_press(x, y, button, modifiers)
-
-        self.login_button.on_mouse_press(x, y, button, modifiers)
-
-    def on_mouse_release(self, x, y, button, modifiers):
-        self.login_button.on_mouse_release(x, y, button, modifiers)
-
-    def on_key_press(self, key, modifiers):
-        self.username_input.on_key_press(key, modifiers)
-        self.password_input.on_key_press(key, modifiers)
-
-    def on_key_release(self, key, modifiers):
-        self.username_input.on_key_release(key, modifiers)
-        self.password_input.on_key_release(key, modifiers)
+        super().setup()
 
     def on_draw(self):
         arcade.start_render()
@@ -109,10 +96,6 @@ class LoginExample(arcade.Window):
 
         if self.status_text is not None:
             self.status_text.draw()
-
-    def on_update(self, delta_time=1/60):
-        self.username_input.on_update(delta_time)
-        self.password_input.on_update(delta_time)
 
     def login(self):
         if self.username_input.text == USERNAME and self.password_input.text == PASSWORD:

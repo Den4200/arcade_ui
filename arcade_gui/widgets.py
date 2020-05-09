@@ -9,7 +9,7 @@ class InteractiveWidgetMeta(type):
             if '__widget_name__' not in attrs:
                 raise AttributeError(f'Class {name} is missing attribute __widget_name__')
 
-            if attrs["__widget_name__"] in _widgets:
+            if attrs['__widget_name__'] in _widgets:
                 raise AttributeError(
                     f'Different classes cannot have the same value '
                     f'for __widget_name__: {repr(attrs["__widget_name__"])}'
