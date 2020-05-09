@@ -2,7 +2,7 @@ from typing import Any, List, Tuple, Union
 
 import arcade
 
-from arcade_gui.text_box import _TextBox
+from arcade_gui.text_box import TextBox
 from arcade_gui.utils import check_point_for_collision
 from arcade_gui.widgets import InteractiveWidget
 
@@ -77,7 +77,7 @@ class ImageButton(InteractiveWidget, ButtonBehavior, arcade.Sprite):
             self.texture = self.normal
 
 
-class TextButton(InteractiveWidget, _TextBox, ButtonBehavior):
+class TextButton(TextBox, ButtonBehavior):
     __widget_name__ = 'text_button'
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:

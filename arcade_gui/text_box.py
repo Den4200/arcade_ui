@@ -5,7 +5,8 @@ import arcade
 from arcade_gui.widgets import InteractiveWidget
 
 
-class _TextBox:
+class TextBox(InteractiveWidget):
+    __widget_name__ = 'text_box'
 
     def __init__(
         self,
@@ -151,7 +152,3 @@ class _TextBox:
     def draw(self) -> None:
         self.shapes.draw()
         self.text_sprite.draw()
-
-
-class TextBox(InteractiveWidget, _TextBox):
-    __widget_name__ = 'text_box'
