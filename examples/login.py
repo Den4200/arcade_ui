@@ -33,6 +33,8 @@ class LoginExample(arcade.Window):
     def __init__(self):
         super().__init__(*WINDOW_SIZE, 'Test Window')
 
+        self.title = None
+
         self.username_input = None
         self.password_input = None
 
@@ -43,15 +45,28 @@ class LoginExample(arcade.Window):
         arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
     def setup(self):
+        self.title = arcade.draw_text(
+            text='Login Example',
+            start_x=WINDOW_SIZE[0] / 2,
+            start_y=WINDOW_SIZE[1] / 2 + 100,
+            color=arcade.color.WHITE,
+            font_size=32,
+            align='center',
+            anchor_x='center',
+            anchor_y='center'
+        )
+
         self.username_input = LoginInput(
             ctx=self,
             center_x=WINDOW_SIZE[0] / 2,
-            center_y=WINDOW_SIZE[1] / 2 + 25
+            center_y=WINDOW_SIZE[1] / 2 + 25,
+            border_width=3
         )
         self.password_input = LoginInput(
             ctx=self,
             center_x=WINDOW_SIZE[0] / 2,
             center_y=WINDOW_SIZE[1] / 2 - 25,
+            border_width=3,
             protected=True
         )
 
@@ -59,7 +74,7 @@ class LoginExample(arcade.Window):
             ctx=self,
             text='Login',
             center_x=WINDOW_SIZE[0] / 2,
-            center_y=WINDOW_SIZE[1] / 2 - 60,
+            center_y=WINDOW_SIZE[1] / 2 - 70,
             width=100,
             height=25,
             border_width=3,
@@ -85,6 +100,8 @@ class LoginExample(arcade.Window):
 
     def on_draw(self):
         arcade.start_render()
+        self.title.draw()
+
         self.username_input.draw()
         self.password_input.draw()
 
