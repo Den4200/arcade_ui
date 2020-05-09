@@ -34,7 +34,8 @@ class EventMap:
             raise ValueError(f'Event {event} does not exist.')
 
         for event in events:
-            event(*args, **kwargs)
+            if event(*args, **kwargs) == StopIteration:
+                break
 
     def clear(self) -> None:
         for attr in self.__dict__:

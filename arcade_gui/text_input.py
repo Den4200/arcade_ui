@@ -1,8 +1,8 @@
-from typing import Tuple, Union
+from typing import Optional, Tuple, Union
 
 import arcade
 
-from arcade_gui.widgets import InteractiveWidget
+from arcade_gui.widgets import InteractiveWidget, _widgets
 
 
 class TextInput(InteractiveWidget):
@@ -231,9 +231,17 @@ class TextInput(InteractiveWidget):
         else:
             self.active = False
 
-    def on_key_press(self, key: int, modifiers: int) -> None:
+    def on_key_press(self, key: int, modifiers: int) -> Optional[StopIteration]:
         if not self.active:
             return
+
+        if key == arcade.key.TAB:
+            self.active = False
+            widgets = _widgets[self.widget_name]
+
+            idx = widgets.index(self)
+            widgets[(idx + 1) % len(widgets)].active = True
+            return StopIteration
 
         self._current_key_pressed = (key, modifiers)
         self.process_key(key, modifiers)
