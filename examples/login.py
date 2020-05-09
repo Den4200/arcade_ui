@@ -33,7 +33,7 @@ class LoginButton(TextButton):
 class LoginExample(Window):
 
     def __init__(self):
-        super().__init__(EventMap(), *WINDOW_SIZE, 'Test Window')
+        super().__init__(EventMap(), *WINDOW_SIZE, 'Login Example')
 
         self.title = None
 
