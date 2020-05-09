@@ -47,6 +47,8 @@ class LoginExample(View):
         arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
     def on_show(self):
+        self.event_map.clear()
+
         self.title = arcade.draw_text(
             text='Login Example',
             start_x=WINDOW_SIZE[0] / 2,

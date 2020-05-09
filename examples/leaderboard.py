@@ -28,6 +28,8 @@ class LeaderboardExample(View):
         arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
     def on_show(self):
+        self.event_map.clear()
+
         self.list_view = ListView(
             center_x=WINDOW_SIZE[0] / 2,
             center_y=WINDOW_SIZE[1] / 2,
