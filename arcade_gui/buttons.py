@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any, List, Tuple, Union
 
 import arcade
 
@@ -79,3 +79,34 @@ class ImageButton(InteractiveWidget, ButtonBehavior, arcade.Sprite):
 
 class TextButton(InteractiveWidget, _TextBox, ButtonBehavior):
     __widget_name__ = 'text_button'
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+
+        self.secondary_color = tuple(
+            value * 0.75 if idx != 3 else value for idx, value in enumerate(self.box_color)
+        )
+
+    def _set_fill_box_color(self, color: Union[Tuple[int, int, int], Tuple[int, int, int, int]]) -> None:
+        self.shapes.remove(self.fill_box)
+
+        self.fill_box = arcade.create_rectangle_filled(
+            center_x=self.center_x,
+            center_y=self.center_y,
+            width=self.width,
+            height=self.height,
+            color=color
+        )
+
+        # Keep the outline on top
+        self.shapes.remove(self.outline_box)
+        self.shapes.append(self.fill_box)
+        self.shapes.append(self.outline_box)
+
+    def on_mouse_press(self, x: float, y: float, button: int, modifiers: int) -> None:
+        if super().on_mouse_press(x, y, button, modifiers):
+            self._set_fill_box_color(self.secondary_color)
+
+    def on_mouse_release(self, x: float, y: float, button: int, modifiers: int) -> None:
+        if super().on_mouse_release(x, y, button, modifiers):
+            self._set_fill_box_color(self.box_color)

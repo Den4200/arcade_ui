@@ -55,26 +55,25 @@ class _TextBox:
         self.horizontal_margin = horizontal_margin
         self.vertical_margin = vertical_margin
 
+        self.fill_box = arcade.create_rectangle_filled(
+            center_x=center_x,
+            center_y=center_y,
+            width=width,
+            height=height,
+            color=box_color
+        )
+        self.outline_box = arcade.create_rectangle_outline(
+            center_x=center_x,
+            center_y=center_y,
+            width=width,
+            height=height,
+            color=border_color,
+            border_width=border_width
+        )
+
         self.shapes = arcade.ShapeElementList()
-        self.shapes.append(
-            arcade.create_rectangle_filled(
-                center_x=center_x,
-                center_y=center_y,
-                width=width,
-                height=height,
-                color=box_color
-            ),
-        )
-        self.shapes.append(
-            arcade.create_rectangle_outline(
-                center_x=center_x,
-                center_y=center_y,
-                width=width,
-                height=height,
-                color=border_color,
-                border_width=border_width
-            )
-        )
+        self.shapes.append(self.fill_box)
+        self.shapes.append(self.outline_box)
 
         if anchor_x == 'left':
             self.start_x = center_x - (width / 2) + horizontal_margin
