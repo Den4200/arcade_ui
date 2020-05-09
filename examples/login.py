@@ -1,5 +1,5 @@
 import arcade
-from arcade_gui import EventMap, TextBox, TextButton, TextInput, Window
+from arcade_gui import EventMap, TextBox, TextButton, TextInput, View
 
 
 WINDOW_SIZE = (1280, 720)
@@ -30,10 +30,10 @@ class LoginButton(TextButton):
         self.ctx.login()
 
 
-class LoginExample(Window):
+class LoginExample(View):
 
-    def __init__(self):
-        super().__init__(EventMap(), *WINDOW_SIZE, 'Login Example')
+    def __init__(self, event_map):
+        super().__init__(event_map)
 
         self.title = None
 
@@ -46,7 +46,7 @@ class LoginExample(Window):
 
         arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
-    def setup(self):
+    def on_show(self):
         self.title = arcade.draw_text(
             text='Login Example',
             start_x=WINDOW_SIZE[0] / 2,
@@ -120,3 +120,11 @@ class LoginExample(Window):
             width=250,
             height=50
         )
+
+
+def main():
+    window = arcade.Window(*WINDOW_SIZE, 'Login Example')
+    event_map = EventMap()
+
+    window.show_view(LoginExample(event_map))
+    arcade.run()

@@ -6,7 +6,7 @@ from arcade_gui.event_map import EventMap
 from arcade_gui.widgets import _widgets
 
 
-class Window(arcade.Window):
+class View(arcade.View):
 
     def __init__(self, event_map: EventMap, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
