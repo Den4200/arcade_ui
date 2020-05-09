@@ -2,6 +2,8 @@ from dataclasses import dataclass, field
 import inspect
 from typing import Callable, List
 
+from arcade_gui.widgets import _widgets
+
 
 @dataclass
 class EventMap:
@@ -38,3 +40,6 @@ class EventMap:
         for attr in self.__dict__:
             if attr.startswith('on_'):
                 self.__dict__[attr] = list()
+
+        for widget_name in _widgets:
+            _widgets[widget_name].clear()
