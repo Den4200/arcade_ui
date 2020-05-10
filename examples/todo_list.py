@@ -46,7 +46,7 @@ class TodoList(View):
             center_x=WINDOW_SIZE[0] / 4,
             center_y=WINDOW_SIZE[1] / 2,
             width=WINDOW_SIZE[0] / 4,
-            height=WINDOW_SIZE[1] / 8 * 7,
+            height=WINDOW_SIZE[1],
             fill=True,
             border=True,
             border_width=5,
@@ -92,6 +92,7 @@ class TodoList(View):
                 border_width=3
             )
         )
+        self.task_input.clear_text()
 
 
 def main():
