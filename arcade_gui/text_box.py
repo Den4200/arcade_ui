@@ -15,7 +15,7 @@ class TextBox(InteractiveWidget):
         center_y: float,
         width: float,
         height: float,
-        box_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.WHITE,
+        fill_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.WHITE,
         border_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.BLACK,
         border_width: float = 1,
         text_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.BLACK,
@@ -40,7 +40,7 @@ class TextBox(InteractiveWidget):
         self.width = width
         self.height = height
 
-        self.box_color = box_color
+        self.fill_color = fill_color
         self.border_color = border_color
         self.border_width = border_width
 
@@ -61,7 +61,7 @@ class TextBox(InteractiveWidget):
             center_y=center_y,
             width=width,
             height=height,
-            color=box_color
+            color=fill_color
         )
         self.outline_box = arcade.create_rectangle_outline(
             center_x=center_x,

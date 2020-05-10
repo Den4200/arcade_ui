@@ -84,10 +84,10 @@ class TextButton(TextBox, ButtonBehavior):
         super().__init__(*args, **kwargs)
 
         self.secondary_color = tuple(
-            value * 0.75 if idx != 3 else value for idx, value in enumerate(self.box_color)
+            value * 0.75 if idx != 3 else value for idx, value in enumerate(self.fill_color)
         )
 
-    def _set_fill_box_color(self, color: Union[Tuple[int, int, int], Tuple[int, int, int, int]]) -> None:
+    def _set_fill_color(self, color: Union[Tuple[int, int, int], Tuple[int, int, int, int]]) -> None:
         self.shapes.remove(self.fill_box)
 
         self.fill_box = arcade.create_rectangle_filled(
@@ -105,8 +105,8 @@ class TextButton(TextBox, ButtonBehavior):
 
     def on_mouse_press(self, x: float, y: float, button: int, modifiers: int) -> None:
         if super().on_mouse_press(x, y, button, modifiers):
-            self._set_fill_box_color(self.secondary_color)
+            self._set_fill_color(self.secondary_color)
 
     def on_mouse_release(self, x: float, y: float, button: int, modifiers: int) -> None:
         if super().on_mouse_release(x, y, button, modifiers):
-            self._set_fill_box_color(self.box_color)
+            self._set_fill_color(self.fill_color)

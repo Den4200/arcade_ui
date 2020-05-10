@@ -14,7 +14,7 @@ class TextInput(InteractiveWidget):
         center_y: float,
         width: float = 300,
         height: float = 25,
-        box_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.WHITE,
+        fill_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.WHITE,
         border_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.BLACK,
         border_width: float = 1,
         text_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.BLACK,
@@ -33,7 +33,7 @@ class TextInput(InteractiveWidget):
         self.width = width
         self.height = height
 
-        self.box_color = box_color
+        self.fill_color = fill_color
         self.border_color = border_color
         self.border_width = border_width
 
@@ -54,7 +54,7 @@ class TextInput(InteractiveWidget):
                 center_y=center_y,
                 width=width,
                 height=height,
-                color=box_color
+                color=fill_color
             ),
         )
         self.shapes.append(
@@ -87,7 +87,7 @@ class TextInput(InteractiveWidget):
             center_y=center_y - (height / 2) + vertical_margin + self.text_sprites[0].height / 2,
             width=1,
             height=self.text_sprites[0].height,
-            color=self.box_color
+            color=self.fill_color
         )
 
         self.cursor_color = cursor_color
