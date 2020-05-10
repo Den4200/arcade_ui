@@ -1,4 +1,6 @@
-from typing import Any, List
+from typing import Any, List, Tuple, Union
+
+import arcade
 
 from arcade_gui.widgets import InteractiveWidget
 
@@ -14,7 +16,11 @@ class ListView(InteractiveWidget):
         height: float,
         nodes: List[Any] = list(),
         scroll_speed: float = 10,
-        margin: float = 10
+        fill: bool = False,
+        fill_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.csscolor.WHITE,
+        border: bool = False,
+        border_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.BLACK,
+        border_width: float = 1
     ) -> None:
         self.center_x = center_x
         self.center_y = center_y
@@ -25,9 +31,34 @@ class ListView(InteractiveWidget):
         self.nodes = nodes
 
         self.scroll_speed = scroll_speed
-        self.margin = margin
+
+        self.fill = fill
+        self.fill_color = fill_color
+
+        self.border = border
+        self.border_color = border_color
+        self.border_width = border_width
 
         self.mouse_pos = (0, 0)
+
+        if self.fill:
+            self.fill_box = arcade.create_rectangle_filled(
+                center_x=center_x,
+                center_y=center_y,
+                width=width,
+                height=height,
+                color=fill_color
+            )
+
+        if self.border:
+            self.border_box = arcade.create_rectangle_outline(
+                center_x=center_x,
+                center_y=center_y,
+                width=width,
+                height=height,
+                color=border_color,
+                border_width=border_width
+            )
 
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float) -> None:
         self.mouse_pos = (x, y)
@@ -43,5 +74,11 @@ class ListView(InteractiveWidget):
                 node.text_sprite.center_y -= scroll_y * self.scroll_speed
 
     def draw(self) -> None:
+        if self.fill:
+            self.fill_box.draw()
+
+        if self.border:
+            self.border_box.draw()
+
         for node in self.nodes:
             node.draw()
