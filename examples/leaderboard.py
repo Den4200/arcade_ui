@@ -37,7 +37,7 @@ class LeaderboardExample(View):
             height=WINDOW_SIZE[1]
         )
 
-        for name, score in sorted(SCORES, key=lambda tup: tup[1]):
+        for name, score in sorted(SCORES, key=lambda tup: tup[1], reverse=True):
             self.list_view.add_node(TextBox)(
                 text=f'{name} - {score}',
                 width=WINDOW_SIZE[0] / 8 * 7,

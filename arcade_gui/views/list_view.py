@@ -73,18 +73,20 @@ class ListView(InteractiveWidget):
 
     def on_mouse_scroll(self, x: int, y: int, scroll_x: int, scroll_y: int) -> None:
         if scroll_y > 0:
-            if (
-                self.nodes[-1].center_y - self.nodes[-1].height / 2 - self.node_margin <=
-                self.center_y - self.height / 2
-            ):
-                return
+            if self.nodes[0].center_y + self.nodes[0].height / 2 < self.center_y + self.height / 2:
+                if (
+                    self.nodes[-1].center_y - self.nodes[-1].height / 2 - self.node_margin <=
+                    self.center_y - self.height / 2
+                ):
+                    return
 
-        else:
-            if (
-                self.nodes[0].center_y + self.nodes[0].height / 2 + self.node_margin >=
-                self.center_y + self.height / 2
-            ):
-                return
+        elif scroll_y < 0:
+            if self.nodes[-1].center_y - self.nodes[-1].height / 2 > self.center_y - self.height / 2:
+                if (
+                    self.nodes[0].center_y + self.nodes[0].height / 2 + self.node_margin >=
+                    self.center_y + self.height / 2
+                ):
+                    return
 
         if (
             self.center_x - self.width / 2 < self.mouse_pos[0] < self.center_x + self.width / 2 and
