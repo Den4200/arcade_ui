@@ -83,13 +83,24 @@ class TodoList(View):
 
     def add_task(self):
         if self.task_input.text:
+            center_x = WINDOW_SIZE[0] / 4
+            width = WINDOW_SIZE[0] / 4 - 20
+            height = 30
+
+            if len(self.list_view.nodes) > 0:
+                last = self.list_view.nodes[-1]
+                center_y = last.center_y - last.height / 2 - 20 - height / 2
+
+            else:
+                center_y = WINDOW_SIZE[1] - 80
+
             self.list_view.add_node(
                 TextBox(
                     text=self.task_input.text,
-                    center_x=WINDOW_SIZE[0] / 4,
-                    center_y=WINDOW_SIZE[1] - len(self.list_view.nodes) * 50 - 80,
-                    width=WINDOW_SIZE[0] / 4 - 20,
-                    height=30,
+                    center_x=center_x,
+                    center_y=center_y,
+                    width=width,
+                    height=height,
                     border_width=3
                 )
             )
