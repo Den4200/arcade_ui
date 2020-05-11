@@ -37,16 +37,12 @@ class LeaderboardExample(View):
             height=WINDOW_SIZE[1]
         )
 
-        for idx, (name, score) in enumerate(sorted(SCORES, key=lambda tup: tup[1])):
-            self.list_view.add_node(
-                TextBox(
-                    text=f'{name} - {score}',
-                    center_x=WINDOW_SIZE[0] / 2,
-                    center_y=WINDOW_SIZE[1] - (len(SCORES) - idx) * 100,
-                    width=WINDOW_SIZE[0] / 8 * 7,
-                    height=80,
-                    border_width=3
-                )
+        for name, score in sorted(SCORES, key=lambda tup: tup[1]):
+            self.list_view.add_node(TextBox)(
+                text=f'{name} - {score}',
+                width=WINDOW_SIZE[0] / 8 * 7,
+                height=80,
+                border_width=3
             )
 
         super().setup()
