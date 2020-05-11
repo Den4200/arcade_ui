@@ -86,8 +86,8 @@ class ListView(InteractiveWidget):
                     node.center_y + node.height / 2 < self.center_y + self.height / 2
                 )
 
-    def add_node(self, node_cls: Any, auto_position: bool = True) -> Callable[[Any, bool], None]:
-        def inner(**kwargs) -> None:
+    def add_node(self, node_cls: Any, auto_position: bool = True) -> Callable[[Any], None]:
+        def inner(**kwargs: Any) -> None:
             if auto_position:
 
                 if len(self.nodes) > 0:
