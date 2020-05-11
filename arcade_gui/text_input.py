@@ -200,6 +200,16 @@ class TextInput(InteractiveWidget):
         # for arcade.draw_text to set caching on/off
         arcade.text.draw_text_cache.clear()
 
+    def clear_text(self) -> None:
+        self.text = ''
+
+        for _ in range(len(self.text_sprites)):
+            self.text_sprites.pop()
+
+        self.cursor_idx = 0
+        self.draw_text_at_cursor('')
+        self.cursor_idx = 0
+
     def delete_text(self, idx: int) -> None:
         self.text = self.text[:idx] + self.text[idx + 1:]
         old_sprite = self.text_sprites.pop(idx)

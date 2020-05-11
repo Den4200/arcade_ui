@@ -30,6 +30,12 @@ class ListView(InteractiveWidget):
 
         self.nodes = nodes
 
+        for node in self.nodes:
+            node.active = (
+                node.center_y - node.height / 2 > self.center_y - self.height / 2 and
+                node.center_y + node.height / 2 < self.center_y + self.height / 2
+            )
+
         self.scroll_speed = scroll_speed
 
         self.fill = fill
@@ -69,16 +75,30 @@ class ListView(InteractiveWidget):
             self.center_y - self.height / 2 < self.mouse_pos[1] < self.center_y + self.height / 2
         ):
             for node in self.nodes:
-                # node.center_y -= scroll_y * self.scroll_speed
+                node.center_y -= scroll_y * self.scroll_speed
                 node.shapes.center_y -= scroll_y * self.scroll_speed
                 node.text_sprite.center_y -= scroll_y * self.scroll_speed
+
+                node.active = (
+                    node.center_y - node.height / 2 > self.center_y - self.height / 2 and
+                    node.center_y + node.height / 2 < self.center_y + self.height / 2
+                )
+
+    def add_node(self, node: Any) -> None:
+        node.active = (
+            node.center_y - node.height / 2 > self.center_y - self.height / 2 and
+            node.center_y + node.height / 2 < self.center_y + self.height / 2
+        )
+
+        self.nodes.append(node)
 
     def draw(self) -> None:
         if self.fill:
             self.fill_box.draw()
 
+        for node in self.nodes:
+            if node.active:
+                node.draw()
+
         if self.border:
             self.border_box.draw()
-
-        for node in self.nodes:
-            node.draw()
