@@ -82,17 +82,18 @@ class TodoList(View):
         self.add_task_button.draw()
 
     def add_task(self):
-        self.list_view.add_node(
-            TextBox(
-                text=self.task_input.text,
-                center_x=WINDOW_SIZE[0] / 4,
-                center_y=WINDOW_SIZE[1] - len(self.list_view.nodes) * 50 - 80,
-                width=WINDOW_SIZE[0] / 4 - 20,
-                height=30,
-                border_width=3
+        if self.task_input.text:
+            self.list_view.add_node(
+                TextBox(
+                    text=self.task_input.text,
+                    center_x=WINDOW_SIZE[0] / 4,
+                    center_y=WINDOW_SIZE[1] - len(self.list_view.nodes) * 50 - 80,
+                    width=WINDOW_SIZE[0] / 4 - 20,
+                    height=30,
+                    border_width=3
+                )
             )
-        )
-        self.task_input.clear_text()
+            self.task_input.clear_text()
 
 
 def main():
