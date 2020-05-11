@@ -93,9 +93,7 @@ class ListView(InteractiveWidget):
             self.center_y - self.height / 2 < self.mouse_pos[1] < self.center_y + self.height / 2
         ):
             for node in self.nodes:
-                node.center_y -= scroll_y * self.scroll_speed
-                node.shapes.center_y -= scroll_y * self.scroll_speed
-                node.text_sprite.center_y -= scroll_y * self.scroll_speed
+                node.move_center_y(- scroll_y * self.scroll_speed)
 
                 node.active = (
                     node.center_y - node.height / 2 > self.center_y - self.height / 2 and

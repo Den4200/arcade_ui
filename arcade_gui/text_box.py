@@ -135,9 +135,12 @@ class TextBox(InteractiveWidget):
 
     @center_x.setter
     def center_x(self, value: float) -> None:
-        # self.shapes.center_x = value
-        # self.text_sprite.center_x = value
         self._center_x = value
+
+    def move_center_x(self, value: float) -> None:
+        self._center_x += value
+        self.shapes.center_x += value
+        self.text_sprite.center_x += value
 
     @property
     def center_y(self) -> float:
@@ -145,9 +148,12 @@ class TextBox(InteractiveWidget):
 
     @center_y.setter
     def center_y(self, value: float) -> None:
-        # self.shapes.center_y = value
-        # self.text_sprite.center_y = value
         self._center_y = value
+
+    def move_center_y(self, value: float) -> None:
+        self._center_y += value
+        self.shapes.center_y += value
+        self.text_sprite.center_y += value
 
     def draw(self) -> None:
         self.shapes.draw()
