@@ -21,8 +21,8 @@ class ButtonBehavior:
                 (x, y),
                 self.center_x - self.viewport[0] - self.width / 2,
                 self.center_x - self.viewport[0] + self.width / 2,
-                self.center_y - self.viewport[1] - self.width / 2,
-                self.center_y - self.viewport[1] + self.width / 2
+                self.center_y - self.viewport[1] - self.height / 2,
+                self.center_y - self.viewport[1] + self.height / 2
             ):
                 self.pressed = True
                 return True
@@ -37,8 +37,8 @@ class ButtonBehavior:
                 (x, y),
                 self.center_x - self.viewport[0] - self.width / 2,
                 self.center_x - self.viewport[0] + self.width / 2,
-                self.center_y - self.viewport[1] - self.width / 2,
-                self.center_y - self.viewport[1] + self.width / 2
+                self.center_y - self.viewport[1] - self.height / 2,
+                self.center_y - self.viewport[1] + self.height / 2
             ):
                 self.on_submit()
                 self.pressed = False

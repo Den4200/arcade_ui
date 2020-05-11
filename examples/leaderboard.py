@@ -38,7 +38,7 @@ class LeaderboardExample(View):
         )
 
         for idx, (name, score) in enumerate(sorted(SCORES, key=lambda tup: tup[1])):
-            self.list_view.nodes.append(
+            self.list_view.add_node(
                 TextBox(
                     text=f'{name} - {score}',
                     center_x=WINDOW_SIZE[0] / 2,
