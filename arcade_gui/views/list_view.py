@@ -15,6 +15,7 @@ class ListView(InteractiveWidget):
         width: float,
         height: float,
         nodes: List[Any] = list(),
+        node_margin: float = 10,
         scroll_speed: float = 10,
         fill: bool = False,
         fill_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.csscolor.WHITE,
@@ -29,6 +30,7 @@ class ListView(InteractiveWidget):
         self.height = height
 
         self.nodes = nodes
+        self.node_margin = node_margin
 
         for node in self.nodes:
             node.active = (
@@ -93,13 +95,13 @@ class ListView(InteractiveWidget):
 
                     node = node_cls(
                         center_x=self.center_x,
-                        center_y=last.center_y - last.height / 2 - 20 - kwargs['height'] / 2,
+                        center_y=last.center_y - last.height / 2 - self.node_margin - kwargs['height'] / 2,
                         **kwargs
                     )
                 else:
                     node = node_cls(
                         center_x=self.center_x,
-                        center_y=self.center_y + self.height / 2 - 20 - kwargs['height'] / 2,
+                        center_y=self.center_y + self.height / 2 - self.node_margin - kwargs['height'] / 2,
                         **kwargs
                     )
 
