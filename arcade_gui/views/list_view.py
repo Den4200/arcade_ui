@@ -31,13 +31,10 @@ class ListView(InteractiveWidget):
         self.nodes = nodes
 
         for node in self.nodes:
-            if (
-                node.center_y - node.height / 2 < center_y - height / 2 or
-                node.center_y + node.height / 2 > center_y + height / 2
-            ):
-                node.active = False
-            else:
-                node.active = True
+            node.active = (
+                node.center_y - node.height / 2 > self.center_y - self.height / 2 and
+                node.center_y + node.height / 2 < self.center_y + self.height / 2
+            )
 
         self.scroll_speed = scroll_speed
 
@@ -82,22 +79,16 @@ class ListView(InteractiveWidget):
                 node.shapes.center_y -= scroll_y * self.scroll_speed
                 node.text_sprite.center_y -= scroll_y * self.scroll_speed
 
-                if (
-                    node.center_y - node.height / 2 < self.center_y - self.height / 2 or
-                    node.center_y + node.height / 2 > self.center_y + self.height / 2
-                ):
-                    node.active = False
-                else:
-                    node.active = True
+                node.active = (
+                    node.center_y - node.height / 2 > self.center_y - self.height / 2 and
+                    node.center_y + node.height / 2 < self.center_y + self.height / 2
+                )
 
     def add_node(self, node: Any) -> None:
-        if (
-            node.center_y - node.height / 2 < self.center_y - self.height / 2 or
-            node.center_y + node.height / 2 > self.center_y + self.height / 2
-        ):
-            node.active = False
-        else:
-            node.active = True
+        node.active = (
+            node.center_y - node.height / 2 > self.center_y - self.height / 2 and
+            node.center_y + node.height / 2 < self.center_y + self.height / 2
+        )
 
         self.nodes.append(node)
 
