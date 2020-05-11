@@ -90,8 +90,6 @@ class ListView(InteractiveWidget):
                 else:
                     node.active = True
 
-                print(node.active)
-
     def add_node(self, node: Any) -> None:
         if (
             node.center_y - node.height / 2 < self.center_y - self.height / 2 or
