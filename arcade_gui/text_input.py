@@ -104,6 +104,8 @@ class TextInput(InteractiveWidget):
 
         self.protected = protected
 
+        self.caps_lock = False
+
         self.KEY_SHIFTS = {
             arcade.key.GRAVE: arcade.key.ASCIITILDE,
             arcade.key.KEY_2: arcade.key.AT,
@@ -260,13 +262,24 @@ class TextInput(InteractiveWidget):
         self._current_key_pressed = None
 
     def process_key(self, key: int, modifiers: int) -> None:
-        if arcade.key.SPACE <= key <= arcade.key.ASCIITILDE:
+        if key == arcade.key.CAPSLOCK:
+            self.caps_lock = not self.caps_lock
+
+        elif arcade.key.SPACE <= key <= arcade.key.ASCIITILDE:
             if modifiers & 1 == arcade.key.MOD_SHIFT:
                 key_shift = self.KEY_SHIFTS.get(key)
 
                 if key_shift is not None:
                     key = key_shift
                 elif 97 <= key <= 122:
+                    if not self.caps_lock:
+                        key -= 32
+                else:
+                    if not self.caps_lock:
+                        key -= 16
+
+            elif self.caps_lock:
+                if 97 <= key <= 122:
                     key -= 32
                 else:
                     key -= 16
