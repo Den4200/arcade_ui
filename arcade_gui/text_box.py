@@ -34,8 +34,8 @@ class TextBox(InteractiveWidget):
 
         self._text = text
 
-        self._center_x = center_x
-        self._center_y = center_y
+        self.center_x = center_x
+        self.center_y = center_y
 
         self.width = width
         self.height = height
@@ -129,31 +129,15 @@ class TextBox(InteractiveWidget):
         self._text = value
         arcade.text.draw_text_cache.clear()
 
-    @property
-    def center_x(self) -> float:
-        return self._center_x
+    def move_center_x(self, delta_x: float) -> None:
+        self.center_x += delta_x
+        self.shapes.center_x += delta_x
+        self.text_sprite.center_x += delta_x
 
-    @center_x.setter
-    def center_x(self, value: float) -> None:
-        self._center_x = value
-
-    def move_center_x(self, value: float) -> None:
-        self._center_x += value
-        self.shapes.center_x += value
-        self.text_sprite.center_x += value
-
-    @property
-    def center_y(self) -> float:
-        return self._center_y
-
-    @center_y.setter
-    def center_y(self, value: float) -> None:
-        self._center_y = value
-
-    def move_center_y(self, value: float) -> None:
-        self._center_y += value
-        self.shapes.center_y += value
-        self.text_sprite.center_y += value
+    def move_center_y(self, delta_y: float) -> None:
+        self.center_y += delta_y
+        self.shapes.center_y += delta_y
+        self.text_sprite.center_y += delta_y
 
     def draw(self) -> None:
         self.shapes.draw()
