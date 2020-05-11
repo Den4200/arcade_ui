@@ -1,4 +1,4 @@
-from typing import Any, List, Tuple, Union
+from typing import Any, Callable, List, Tuple, Union
 
 import arcade
 
@@ -84,13 +84,36 @@ class ListView(InteractiveWidget):
                     node.center_y + node.height / 2 < self.center_y + self.height / 2
                 )
 
-    def add_node(self, node: Any) -> None:
-        node.active = (
-            node.center_y - node.height / 2 > self.center_y - self.height / 2 and
-            node.center_y + node.height / 2 < self.center_y + self.height / 2
-        )
+    def add_node(self, node_cls: Any, auto_position: bool = True) -> Callable[[Any, bool], None]:
+        def inner(**kwargs) -> None:
+            if auto_position:
 
-        self.nodes.append(node)
+                if len(self.nodes) > 0:
+                    last = self.nodes[-1]
+
+                    node = node_cls(
+                        center_x=self.center_x,
+                        center_y=last.center_y - last.height / 2 - 20 - kwargs['height'] / 2,
+                        **kwargs
+                    )
+                else:
+                    node = node_cls(
+                        center_x=self.center_x,
+                        center_y=self.center_y + self.height / 2 - 20 - kwargs['height'] / 2,
+                        **kwargs
+                    )
+
+            else:
+                node = node_cls(**kwargs)
+
+            node.active = (
+                node.center_y - node.height / 2 > self.center_y - self.height / 2 and
+                node.center_y + node.height / 2 < self.center_y + self.height / 2
+            )
+
+            self.nodes.append(node)
+
+        return inner
 
     def draw(self) -> None:
         if self.fill:
