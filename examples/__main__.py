@@ -3,7 +3,7 @@ import sys
 
 def main():
     if len(sys.argv) < 2:
-        print('Usage: python -m examples <login / leaderboard>')
+        print('Usage: python -m examples <login / leaderboard / todo_list>')
         sys.exit(1)
 
     if sys.argv[1] == 'login':
@@ -16,7 +16,7 @@ def main():
         from examples.todo_list import main
 
     else:
-        print('Usage: python -m examples <login / leaderboard>')
+        print('Usage: python -m examples <login / leaderboard / todo_list>')
         sys.exit(1)
 
     main()
