@@ -36,7 +36,7 @@ class EventMap:
                     self.__dict__[attr].remove(method)
 
     def execute(self, event, *args, **kwargs) -> None:
-        events = getattr(self, event)
+        events = getattr(self, event, default=None)
 
         if events is None:
             raise ValueError(f'Event {event} does not exist.')
