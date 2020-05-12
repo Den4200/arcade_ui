@@ -142,6 +142,11 @@ class ListView(InteractiveWidget):
             n.move_center_y(-(n.center_y - prev_y))
             prev_y = current_y
 
+            n.active = (
+                n.center_y - n.height / 2 > self.center_y - self.height / 2 and
+                n.center_y + n.height / 2 < self.center_y + self.height / 2
+            )
+
     def draw(self) -> None:
         if self.fill:
             self.fill_box.draw()
