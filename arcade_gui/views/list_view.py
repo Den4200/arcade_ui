@@ -101,7 +101,7 @@ class ListView(InteractiveWidget):
                 )
 
     def add_node(self, node_cls: Any, auto_position: bool = True) -> Callable[[Any], None]:
-        def inner(**kwargs: Any) -> None:
+        def inner(**kwargs: Any) -> Any:
             if auto_position:
 
                 if len(self.nodes) > 0:
@@ -128,8 +128,19 @@ class ListView(InteractiveWidget):
             )
 
             self.nodes.append(node)
+            return node
 
         return inner
+
+    def remove_node(self, node: Any) -> None:
+        idx = self.nodes.index(node)
+        self.nodes.remove(node)
+
+        prev_y = node.center_y
+        for n in self.nodes[idx:]:
+            current_y = n.center_y
+            n.move_center_y(-(n.center_y - prev_y))
+            prev_y = current_y
 
     def draw(self) -> None:
         if self.fill:

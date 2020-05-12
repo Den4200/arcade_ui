@@ -27,6 +27,14 @@ class EventMap:
             if inst_attr in self.__dict__:
                 self.__dict__[inst_attr].append(method)
 
+    def remove(self, instance) -> None:
+        inst_attrs = inspect.getmembers(instance, predicate=inspect.ismethod)
+
+        for inst_attr, method in inst_attrs:
+            for attr, methods in self.__dict__.items():
+                if method in methods:
+                    self.__dict__[attr].remove(method)
+
     def execute(self, event, *args, **kwargs) -> None:
         events = getattr(self, event)
 
