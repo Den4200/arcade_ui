@@ -154,14 +154,14 @@ class ListView(InteractiveWidget):
                 n.center_y + n.height / 2 < self.center_y + self.height / 2
             )
 
-    def move_center_x(self, delta_x) -> None:
+    def move_center_x(self, delta_x: float) -> None:
         self.center_x += delta_x
         self.shapes.move(delta_x, 0)
 
         for node in self.nodes:
             node.move_center_x(delta_x)
 
-    def move_center_y(self, delta_y) -> None:
+    def move_center_y(self, delta_y: float) -> None:
         self.center_y += delta_y
         self.shapes.move(0, delta_y)
 
