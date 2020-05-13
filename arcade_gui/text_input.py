@@ -90,6 +90,9 @@ class TextInput(InteractiveWidget):
             color=self.fill_color
         )
 
+        self.cursor_list = arcade.ShapeElementList()
+        self.cursor_list.append(self.cursor)
+
         self.cursor_color = cursor_color
         self.prev_cursor_idx = 0
         self.cursor_idx = 0
@@ -156,6 +159,7 @@ class TextInput(InteractiveWidget):
 
     def set_cursor(self, center_x: float, center_y: float, alpha: int) -> None:
         color = self.cursor_color if len(self.cursor_color) == 3 else self.cursor_color[:-1]
+        self.cursor_list.remove(self.cursor)
         self.cursor = arcade.create_rectangle_filled(
             center_x=center_x,
             center_y=center_y,
@@ -163,6 +167,7 @@ class TextInput(InteractiveWidget):
             height=self.text_sprites[self.cursor_idx].height,
             color=(*color, alpha)
         )
+        self.cursor_list.append(self.cursor)
 
     def draw_text_at_cursor(self, text: str) -> None:
         display_text = '*' if self.protected else text
@@ -316,20 +321,20 @@ class TextInput(InteractiveWidget):
         self.center_x += delta_x
         self.shapes.move(delta_x, 0)
         self.text_sprites.move(delta_x, 0)
-        self.cursor.center_x += delta_x
+        self.cursor_list.move(delta_x, 0)
 
     def move_center_y(self, delta_y: float) -> None:
         self.center_y += delta_y
         self.shapes.move(0, delta_y)
         self.text_sprites.move(0, delta_y)
-        self.cursor.center_y += delta_y
+        self.cursor_list.move(0, delta_y)
 
     def draw(self) -> None:
         self.shapes.draw()
         self.text_sprites.draw()
 
         if self.active:
-            self.cursor.draw()
+            self.cursor_list.draw()
 
     def on_update(self, delta_time: float = 1/60) -> None:
         if not self.active:
