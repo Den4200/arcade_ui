@@ -169,12 +169,8 @@ class ListView(InteractiveWidget):
             node.move_center_y(delta_y)
 
     def draw(self) -> None:
-        if self.fill:
-            self.fill_box.draw()
+        self.shapes.draw()
 
         for node in self.nodes:
             if node.active:
                 node.draw()
-
-        if self.border:
-            self.border_box.draw()
