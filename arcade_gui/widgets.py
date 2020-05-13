@@ -1,7 +1,10 @@
+from abc import ABCMeta, abstractmethod
+
+
 _widgets = dict()
 
 
-class InteractiveWidgetMeta(type):
+class _InteractiveWidgetMeta(type):
 
     def __new__(cls, name, bases, attrs):
         if name != 'InteractiveWidget':
@@ -20,6 +23,10 @@ class InteractiveWidgetMeta(type):
         return super().__new__(cls, name, bases, attrs)
 
 
+class InteractiveWidgetMeta(ABCMeta, _InteractiveWidgetMeta):
+    pass
+
+
 class InteractiveWidget(metaclass=InteractiveWidgetMeta):
 
     def __new__(cls, *args, **kwargs):
@@ -36,3 +43,11 @@ class InteractiveWidget(metaclass=InteractiveWidgetMeta):
     @property
     def widget_name(self):
         return self.__widget_name__
+
+    @abstractmethod
+    def move_center_x(self, delta_x: float) -> None:
+        pass
+
+    @abstractmethod
+    def move_center_y(self, delta_y: float) -> None:
+        pass

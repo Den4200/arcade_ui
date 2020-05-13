@@ -68,7 +68,7 @@ class TextInput(InteractiveWidget):
             )
         )
 
-        self.text_sprites = arcade.SpriteList(is_static=True, use_spatial_hash=True)
+        self.text_sprites = arcade.SpriteList()
         self.text_sprites.append(
             arcade.draw_text(
                 text='',
@@ -309,8 +309,20 @@ class TextInput(InteractiveWidget):
         elif key == arcade.key.ENTER:
             self.on_enter(self.text)
 
-    def on_enter(self, text) -> None:
+    def on_enter(self, text: str) -> None:
         pass
+
+    def move_center_x(self, delta_x: float) -> None:
+        self.center_x += delta_x
+        self.shapes.move(delta_x, 0)
+        self.text_sprites.move(delta_x, 0)
+        self.cursor.center_x += delta_x
+
+    def move_center_y(self, delta_y: float) -> None:
+        self.center_y += delta_y
+        self.shapes.move(0, delta_y)
+        self.text_sprites.move(0, delta_y)
+        self.cursor.center_y += delta_y
 
     def draw(self) -> None:
         self.shapes.draw()

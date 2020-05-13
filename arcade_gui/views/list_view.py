@@ -49,6 +49,8 @@ class ListView(InteractiveWidget):
 
         self.mouse_pos = (0, 0)
 
+        self.shapes = arcade.ShapeElementList()
+
         if self.fill:
             self.fill_box = arcade.create_rectangle_filled(
                 center_x=center_x,
@@ -57,6 +59,7 @@ class ListView(InteractiveWidget):
                 height=height,
                 color=fill_color
             )
+            self.shapes.append(self.fill_box)
 
         if self.border:
             self.border_box = arcade.create_rectangle_outline(
@@ -67,6 +70,7 @@ class ListView(InteractiveWidget):
                 color=border_color,
                 border_width=border_width
             )
+            self.shapes.append(self.border_box)
 
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float) -> None:
         self.mouse_pos = (x, y)
@@ -149,6 +153,20 @@ class ListView(InteractiveWidget):
                 n.center_y - n.height / 2 > self.center_y - self.height / 2 and
                 n.center_y + n.height / 2 < self.center_y + self.height / 2
             )
+
+    def move_center_x(self, delta_x) -> None:
+        self.center_x += delta_x
+        self.shapes.move(delta_x, 0)
+
+        for node in self.nodes:
+            node.move_center_x(delta_x)
+
+    def move_center_y(self, delta_y) -> None:
+        self.center_y += delta_y
+        self.shapes.move(0, delta_y)
+
+        for node in self.nodes:
+            node.move_center_y(delta_y)
 
     def draw(self) -> None:
         if self.fill:
