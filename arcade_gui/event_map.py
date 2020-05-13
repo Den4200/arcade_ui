@@ -1,8 +1,8 @@
 from dataclasses import dataclass, field
 import inspect
-from typing import Callable, List
+from typing import Any, Callable, List, Type
 
-from arcade_gui.widgets import _widgets
+from arcade_gui.widgets import InteractiveWidget, _widgets
 
 
 @dataclass
@@ -20,14 +20,14 @@ class EventMap:
 
     on_update: List[Callable] = field(default_factory=list)
 
-    def add(self, instance) -> None:
+    def add(self, instance: Type[InteractiveWidget]) -> None:
         inst_attrs = inspect.getmembers(instance, predicate=inspect.ismethod)
 
         for inst_attr, method in inst_attrs:
             if inst_attr in self.__dict__:
                 self.__dict__[inst_attr].append(method)
 
-    def remove(self, instance) -> None:
+    def remove(self, instance: Type[InteractiveWidget]) -> None:
         inst_attrs = inspect.getmembers(instance, predicate=inspect.ismethod)
 
         for inst_attr, method in inst_attrs:
@@ -35,7 +35,7 @@ class EventMap:
                 if method in methods:
                     self.__dict__[attr].remove(method)
 
-    def execute(self, event, *args, **kwargs) -> None:
+    def execute(self, event: str, *args: Any, **kwargs: Any) -> None:
         events = getattr(self, event, None)
 
         if events is None:

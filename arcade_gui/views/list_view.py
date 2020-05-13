@@ -1,4 +1,4 @@
-from typing import Any, Callable, List, Tuple, Union
+from typing import Any, Callable, List, Tuple, Type, Union
 
 import arcade
 
@@ -14,7 +14,7 @@ class ListView(InteractiveWidget):
         center_y: float,
         width: float,
         height: float,
-        nodes: List[Any] = list(),
+        nodes: List[Type[InteractiveWidget]] = list(),
         node_margin: float = 10,
         scroll_speed: float = 10,
         fill: bool = False,
@@ -107,8 +107,13 @@ class ListView(InteractiveWidget):
                     node.center_y + node.height / 2 < self.center_y + self.height / 2
                 )
 
-    def add_node(self, node_cls: Any, auto_position: bool = True) -> Callable[[Any], None]:
-        def inner(**kwargs: Any) -> Any:
+    def add_node(
+        self,
+        node_cls: Type[InteractiveWidget],
+        auto_position: bool = True
+    ) -> Callable[[Any], Type[InteractiveWidget]]:
+
+        def inner(**kwargs: Any) -> Type[InteractiveWidget]:
             if auto_position:
 
                 if len(self.nodes) > 0:
@@ -139,7 +144,7 @@ class ListView(InteractiveWidget):
 
         return inner
 
-    def remove_node(self, node: Any) -> None:
+    def remove_node(self, node: Type[InteractiveWidget]) -> None:
         idx = self.nodes.index(node)
         self.nodes.remove(node)
 
