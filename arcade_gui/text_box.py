@@ -34,6 +34,9 @@ class TextBox(InteractiveWidget):
 
         self._text = text
 
+        self._orig_cx = center_x
+        self._orig_cy = center_y
+
         self.center_x = center_x
         self.center_y = center_y
 

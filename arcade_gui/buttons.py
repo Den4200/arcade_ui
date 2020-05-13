@@ -91,8 +91,8 @@ class TextButton(TextBox, ButtonBehavior):
         self.shapes.remove(self.fill_box)
 
         self.fill_box = arcade.create_rectangle_filled(
-            center_x=self.center_x,
-            center_y=self.center_y,
+            center_x=self._orig_cx,
+            center_y=self._orig_cy,
             width=self.width,
             height=self.height,
             color=color
