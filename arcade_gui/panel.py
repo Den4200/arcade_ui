@@ -1,4 +1,4 @@
-from typing import Tuple, Type, Union
+from typing import List, Tuple, Type, Union
 
 import arcade
 
@@ -30,8 +30,29 @@ class Panel(InteractiveWidget):
         self.border_width = border_width
 
         self.moveable = moveable
+        self.is_pressed = False
 
-        self.elements = list()
+        self.fill_box = arcade.create_rectangle_filled(
+            center_x=center_x,
+            center_y=center_y,
+            width=width,
+            height=height,
+            color=fill_color
+        )
+        self.outline_box = arcade.create_rectangle_outline(
+            center_x=center_x,
+            center_y=center_y,
+            width=width,
+            height=height,
+            color=border_color,
+            border_width=border_width
+        )
+
+        self.shapes = arcade.ShapeElementList()
+        self.shapes.append(self.fill_box)
+        self.shapes.append(self.outline_box)
+
+        self.elements: List[Type[InteractiveWidget]] = list()
 
     def add_element(self, element: Type[InteractiveWidget]) -> None:
         if not isinstance(element, InteractiveWidget):
@@ -41,3 +62,26 @@ class Panel(InteractiveWidget):
 
     def remove_element(self, element: Type[InteractiveWidget]) -> None:
         self.elements.remove(element)
+
+    def move_center_x(self, delta_x: float) -> None:
+        self.shapes.move(delta_x, 0)
+
+        for element in self.elements:
+            element.move_center_x(delta_x)
+
+    def move_center_y(self, delta_y: float) -> None:
+        self.shapes.move(0, delta_y)
+
+        for element in self.elements:
+            element.move_center_y(delta_y)
+
+    def on_mouse_press(self, x: float, y: float, button: int, modifiers: int) -> None:
+        self.is_pressed = True
+
+    def on_mouse_release(self, x: float, y: float, button: int, modifiers: int) -> None:
+        self.is_pressed = False
+
+    def on_mouse_motion(self, x: float, y: float, dx: float, dy: float) -> None:
+        if self.is_pressed:
+            self.move_center_x(dx, 0)
+            self.move_center_y(0, dy)
