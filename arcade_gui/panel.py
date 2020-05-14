@@ -85,3 +85,7 @@ class Panel(InteractiveWidget):
         if self.is_pressed:
             self.move_center_x(dx, 0)
             self.move_center_y(0, dy)
+
+    def draw(self) -> None:
+        self.shapes.draw()
+        self.elements.draw()
