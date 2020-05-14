@@ -2,10 +2,11 @@ from typing import List, Tuple, Type, Union
 
 import arcade
 
+from arcade_gui.buttons import ButtonBehavior
 from arcade_gui.widgets import InteractiveWidget
 
 
-class Panel(InteractiveWidget):
+class Panel(InteractiveWidget, ButtonBehavior):
     __widget_name__ = 'panel'
 
     def __init__(
@@ -17,8 +18,11 @@ class Panel(InteractiveWidget):
         fill_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.WHITE,
         border_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.BLACK,
         border_width: float = 1,
-        moveable: bool = True
+        moveable: bool = True,
+        **kwargs
     ):
+        super().__init__(**kwargs)
+
         self.center_x = center_x
         self.center_y = center_y
 
@@ -30,7 +34,6 @@ class Panel(InteractiveWidget):
         self.border_width = border_width
 
         self.moveable = moveable
-        self.is_pressed = False
 
         self.fill_box = arcade.create_rectangle_filled(
             center_x=center_x,
@@ -75,16 +78,10 @@ class Panel(InteractiveWidget):
         for element in self.elements:
             element.move_center_y(delta_y)
 
-    def on_mouse_press(self, x: float, y: float, button: int, modifiers: int) -> None:
-        self.is_pressed = True
-
-    def on_mouse_release(self, x: float, y: float, button: int, modifiers: int) -> None:
-        self.is_pressed = False
-
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float) -> None:
-        if self.is_pressed:
-            self.move_center_x(dx, 0)
-            self.move_center_y(0, dy)
+        if self.pressed:
+            self.move_center_x(dx)
+            self.move_center_y(dy)
 
     def draw(self) -> None:
         self.shapes.draw()

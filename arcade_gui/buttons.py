@@ -14,6 +14,7 @@ class ButtonBehavior:
         viewport: List[float],  # Must be a mutable object!
     ):
         self.viewport = viewport
+        self.pressed = False
 
     def on_mouse_press(self, x: float, y: float, button: int, modifiers: int) -> bool:
         if button == arcade.MOUSE_BUTTON_LEFT:
@@ -32,7 +33,7 @@ class ButtonBehavior:
         return False
 
     def on_mouse_release(self, x: float, y: float, button: int, modifiers: int) -> bool:
-        if button == arcade.MOUSE_BUTTON_LEFT:
+        if button == arcade.MOUSE_BUTTON_LEFT and hasattr(self, 'pressed') and self.pressed:
             if check_point_for_collision(
                 (x, y),
                 self.center_x - self.viewport[0] - self.width / 2,
