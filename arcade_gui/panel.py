@@ -88,4 +88,6 @@ class Panel(InteractiveWidget):
 
     def draw(self) -> None:
         self.shapes.draw()
-        self.elements.draw()
+
+        for element in self.elements:
+            element.draw()
