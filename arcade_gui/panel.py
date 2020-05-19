@@ -2,11 +2,10 @@ from typing import List, Tuple, Type, Union
 
 import arcade
 
-from arcade_gui.buttons import ButtonBehavior
 from arcade_gui.widgets import InteractiveWidget
 
 
-class Panel(InteractiveWidget, ButtonBehavior):
+class Panel(InteractiveWidget):
     __widget_name__ = 'panel'
 
     def __init__(
@@ -18,11 +17,8 @@ class Panel(InteractiveWidget, ButtonBehavior):
         fill_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.WHITE,
         border_color: Union[Tuple[int, int, int], Tuple[int, int, int, int]] = arcade.color.BLACK,
         border_width: float = 1,
-        moveable: bool = True,
         **kwargs
     ):
-        raise NotImplementedError
-
         super().__init__(**kwargs)
 
         self.center_x = center_x
@@ -34,8 +30,6 @@ class Panel(InteractiveWidget, ButtonBehavior):
         self.fill_color = fill_color
         self.border_color = border_color
         self.border_width = border_width
-
-        self.moveable = moveable
 
         self.fill_box = arcade.create_rectangle_filled(
             center_x=center_x,
@@ -73,10 +67,6 @@ class Panel(InteractiveWidget, ButtonBehavior):
 
         for element in self.elements:
             element.move(delta_x, delta_y)
-
-    def on_mouse_motion(self, x: float, y: float, dx: float, dy: float) -> None:
-        if self.pressed:
-            self.move(dx, dy)
 
     def draw(self) -> None:
         self.shapes.draw()
