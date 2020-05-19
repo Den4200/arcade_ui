@@ -7,7 +7,7 @@ from arcade_ui.widgets import InteractiveWidget
 from arcade_ui.view import View
 
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 
 __all__ = (
     'EventMap',
