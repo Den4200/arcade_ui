@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 import inspect
 from typing import Any, Callable, List, Type
 
-from arcade_gui.widgets import InteractiveWidget, _widgets
+from arcade_ui.widgets import InteractiveWidget, _widgets
 
 
 @dataclass

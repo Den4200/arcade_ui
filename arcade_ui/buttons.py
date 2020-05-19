@@ -2,9 +2,9 @@ from typing import Any, List, Tuple, Union
 
 import arcade
 
-from arcade_gui.text_box import TextBox
-from arcade_gui.utils import check_point_for_collision
-from arcade_gui.widgets import InteractiveWidget
+from arcade_ui.text_box import TextBox
+from arcade_ui.utils import check_point_for_collision
+from arcade_ui.widgets import InteractiveWidget
 
 
 class ButtonBehavior:

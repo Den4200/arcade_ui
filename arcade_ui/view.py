@@ -2,8 +2,8 @@ from typing import Any
 
 import arcade
 
-from arcade_gui.event_map import EventMap
-from arcade_gui.widgets import _widgets
+from arcade_ui.event_map import EventMap
+from arcade_ui.widgets import _widgets
 
 
 class View(arcade.View):

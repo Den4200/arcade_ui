@@ -2,7 +2,7 @@ from typing import Optional, Tuple, Union
 
 import arcade
 
-from arcade_gui.widgets import InteractiveWidget, _widgets
+from arcade_ui.widgets import InteractiveWidget, _widgets
 
 
 class TextInput(InteractiveWidget):

@@ -1,6 +1,6 @@
 import arcade
-from arcade_gui import EventMap, TextBox, View
-from arcade_gui.views import ListView
+from arcade_ui import EventMap, TextBox, View
+from arcade_ui.views import ListView
 
 
 WINDOW_SIZE = (1280, 720)

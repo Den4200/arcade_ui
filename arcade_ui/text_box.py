@@ -2,7 +2,7 @@ from typing import Tuple, Union
 
 import arcade
 
-from arcade_gui.widgets import InteractiveWidget
+from arcade_ui.widgets import InteractiveWidget
 
 
 class TextBox(InteractiveWidget):
