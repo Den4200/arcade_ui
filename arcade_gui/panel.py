@@ -21,6 +21,8 @@ class Panel(InteractiveWidget, ButtonBehavior):
         moveable: bool = True,
         **kwargs
     ):
+        raise NotImplementedError
+
         super().__init__(**kwargs)
 
         self.center_x = center_x
