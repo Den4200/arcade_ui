@@ -130,3 +130,7 @@ def main():
 
     window.show_view(LoginExample(event_map))
     arcade.run()
+
+
+if __name__ == "__main__":
+    main()
