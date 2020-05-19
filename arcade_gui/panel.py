@@ -66,22 +66,15 @@ class Panel(InteractiveWidget, ButtonBehavior):
     def remove_element(self, element: Type[InteractiveWidget]) -> None:
         self.elements.remove(element)
 
-    def move_center_x(self, delta_x: float) -> None:
-        self.shapes.move(delta_x, 0)
+    def move(self, delta_x: float, delta_y: float) -> None:
+        self.shapes.move(delta_x, delta_y)
 
         for element in self.elements:
-            element.move_center_x(delta_x)
-
-    def move_center_y(self, delta_y: float) -> None:
-        self.shapes.move(0, delta_y)
-
-        for element in self.elements:
-            element.move_center_y(delta_y)
+            element.move(delta_x, delta_y)
 
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float) -> None:
         if self.pressed:
-            self.move_center_x(dx)
-            self.move_center_y(dy)
+            self.move(dx, dy)
 
     def draw(self) -> None:
         self.shapes.draw()

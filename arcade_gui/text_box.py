@@ -132,14 +132,13 @@ class TextBox(InteractiveWidget):
         self._text = value
         arcade.text.draw_text_cache.clear()
 
-    def move_center_x(self, delta_x: float) -> None:
+    def move_center_x(self, delta_x: float, delta_y: float) -> None:
         self.center_x += delta_x
-        self.shapes.center_x += delta_x
-        self.text_sprite.center_x += delta_x
-
-    def move_center_y(self, delta_y: float) -> None:
         self.center_y += delta_y
-        self.shapes.center_y += delta_y
+
+        self.shapes.move(delta_x, delta_y)
+
+        self.text_sprite.center_x += delta_x
         self.text_sprite.center_y += delta_y
 
     def draw(self) -> None:

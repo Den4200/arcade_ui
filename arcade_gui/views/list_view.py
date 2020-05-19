@@ -100,7 +100,7 @@ class ListView(InteractiveWidget):
             self.center_y - self.height / 2 < self.mouse_pos[1] < self.center_y + self.height / 2
         ):
             for node in self.nodes:
-                node.move_center_y(-scroll_y * self.scroll_speed)
+                node.move(0, -scroll_y * self.scroll_speed)
 
                 node.active = (
                     node.center_y - node.height / 2 > self.center_y - self.height / 2 and
@@ -151,7 +151,7 @@ class ListView(InteractiveWidget):
         prev_y = node.center_y
         for n in self.nodes[idx:]:
             current_y = n.center_y
-            n.move_center_y(-(n.center_y - prev_y))
+            n.move(0, -(n.center_y - prev_y))
             prev_y = current_y
 
             n.active = (
@@ -159,19 +159,14 @@ class ListView(InteractiveWidget):
                 n.center_y + n.height / 2 < self.center_y + self.height / 2
             )
 
-    def move_center_x(self, delta_x: float) -> None:
+    def move(self, delta_x: float, delta_y: float) -> None:
         self.center_x += delta_x
-        self.shapes.move(delta_x, 0)
-
-        for node in self.nodes:
-            node.move_center_x(delta_x)
-
-    def move_center_y(self, delta_y: float) -> None:
         self.center_y += delta_y
-        self.shapes.move(0, delta_y)
+
+        self.shapes.move(delta_x, delta_y)
 
         for node in self.nodes:
-            node.move_center_y(delta_y)
+            node.move(delta_x, delta_y)
 
     def draw(self) -> None:
         self.shapes.draw()

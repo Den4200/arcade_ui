@@ -45,9 +45,5 @@ class InteractiveWidget(metaclass=InteractiveWidgetMeta):
         return self.__widget_name__
 
     @abstractmethod
-    def move_center_x(self, delta_x: float) -> None:
-        pass
-
-    @abstractmethod
-    def move_center_y(self, delta_y: float) -> None:
+    def move(self, delta_x: float, delta_y: float) -> None:
         pass
